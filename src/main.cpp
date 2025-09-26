@@ -4,12 +4,17 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
+#include <stack>
+#include <map>
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
     string raw_code, clean_code;
     array<char, 8> valid_characters = {'<', '>', '+', '-', '.', ',', '[', ']'};
+    stack<int> bracket_stack;
+    map<int, int> jump_fwd;
+    map<int, int> jump_bwd;
 
     if (argc > 1) {
         string filename = argv[1];
@@ -37,4 +42,21 @@ int main(int argc, char* argv[]) {
     }
 
     clean_code = raw_code;
+
+    for (int i = 0; i <= clean_code.length(); i++) {
+        if (clean_code[i] == '[') {
+            bracket_stack.push(i);
+        } else if (clean_code[i] == ']') {
+            if (bracket_stack.empty()) {
+                cerr << "Unmatched ']' at position" << i << endl;
+                return 1;
+            }
+            int j = bracket_stack.top();
+            jump_fwd[j] = i;
+            jump_bwd[i] = j;
+        }
+    }
+    if (!bracket_stack.empty()) {
+        cerr << "Unmatched ']' at position " << bracket_stack.top() << endl;
+    }
 }
