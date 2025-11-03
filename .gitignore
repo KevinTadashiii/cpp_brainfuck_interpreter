@@ -110,3 +110,8 @@ build/
 out/
 bin/
 lib/
+
+# =====================================
+# Brainfuck Directory (For Testing)
+# =====================================
+brainfuck/
