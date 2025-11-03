@@ -1,4 +1,4 @@
-#include "utils/brainfuck_utils.h"
+#include "../../include/utils/build_bracket_map.h"
 
 #include <stack>
 #include <stdexcept>
